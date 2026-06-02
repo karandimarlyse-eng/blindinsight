@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>BlindInsight – Anonymisation des données sensibles</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            /* Fond bleu marine profond */
+            background: #0A2342;
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            color: #1e2a3a;
+            line-height: 1.5;
+            padding: 2rem 1rem;
+            min-height: 100vh;
+        }
+
+        /* Carte principale blanche */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 32px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            padding: 2rem 2rem 2.5rem;
+        }
+
+        /* LOGO + HEADER (logo centré au-dessus du titre) */
+        .logo-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        .eye-logo {
+            width: 140px;
+            height: auto;
+            max-width: 100%;
+            margin-bottom: 0.5rem;
+        }
+        .header {
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #0A2342;
+            letter-spacing: -0.5px;
+        }
+        .header h2 {
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: #0A2342;
+            margin-top: 0.3rem;
+        }
+        .header p {
+            font-size: 1rem;
+            color: #4a627a;
+            margin: 0.8rem 0 0;
+        }
+        .btn {
+            background-color: #00C853;
+            color: #0A2342;
+            border: none;
+            padding: 12px 32px;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: inherit;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            margin-top: 1rem;
+        }
+        .btn:hover {
+            background-color: #00a844;
+            transform: scale(1.02);
+        }
+
+        /* SECTION POURQUOI C'EST IMPORTANT */
+        .importance {
+            margin: 2rem 0 2rem;
+        }
+        .importance h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #0A2342;
+            margin-bottom: 1.2rem;
+            text-align: center;
+        }
+        .points {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+        .point-card {
+            background: linear-gradient(145deg, #ffffff, #f8fafd);
+            border-radius: 20px;
+            padding: 1.5rem;
+            flex: 1;
+            min-width: 220px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border-left: 4px solid #00C853;
+            transition: all 0.2s;
+        }
+        .point-card:hover {
+            transform: translateY(-5px);
+        }
+        .point-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.8rem;
+        }
+        .point-card strong {
+            font-size: 1.1rem;
+            color: #0A2342;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        .point-card span {
+            font-size: 0.9rem;
+            color: #4a627a;
+        }
+
+        /* SECTION JURIDIQUE */
+        .legal-section {
+            margin: 2rem 0;
+            background: #f0f7fc;
+            border-radius: 20px;
+            padding: 1.5rem;
+        }
+        .legal-section h3 {
+            font-size: 1.3rem;
+            color: #0A2342;
+            margin-bottom: 1rem;
+            border-left: 4px solid #00C853;
+            padding-left: 12px;
+        }
+        .legal-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .legal-item {
+            background: white;
+            border-radius: 16px;
+            padding: 1rem;
+            flex: 1;
+            min-width: 200px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+        .legal-item h4 {
+            color: #00C853;
+            margin-bottom: 0.5rem;
+        }
+        .legal-item p {
+            font-size: 0.9rem;
+            color: #2c3e4e;
+        }
+
+        /* TABLEAUX */
+        .tables-section {
+            margin-top: 2rem;
+        }
+        .table-wrapper {
+            margin-bottom: 2rem;
+        }
+        .table-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #0A2342;
+            margin-bottom: 0.8rem;
+            border-left: 5px solid #00C853;
+            padding-left: 12px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+        th, td {
+            border: 1px solid #e2e8f0;
+            padding: 10px 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #0A2342;
+            font-weight: 600;
+            color: white;
+        }
+        td {
+            color: #1e2a3a;
+        }
+
+        /* FORMULAIRE DE CONTACT */
+        .contact-section {
+            margin-top: 2rem;
+            background: #f0f7fc;
+            border-radius: 20px;
+            padding: 1.8rem;
+        }
+        .contact-section h3 {
+            font-size: 1.3rem;
+            color: #0A2342;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+            color: #0A2342;
+        }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #ccc;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 0.9rem;
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #00C853;
+            box-shadow: 0 0 0 2px rgba(0,200,83,0.2);
+        }
+        .btn-submit {
+            background-color: #00C853;
+            color: #0A2342;
+            border: none;
+            padding: 10px 24px;
+            font-weight: bold;
+            border-radius: 40px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1rem;
+        }
+        .btn-submit:hover {
+            background-color: #00a844;
+        }
+        .form-message {
+            margin-top: 0.8rem;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 700px) {
+            body {
+                padding: 1rem;
+            }
+            .container {
+                padding: 1.5rem;
+            }
+            .eye-logo {
+                width: 100px;
+            }
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            .header h2 {
+                font-size: 1.2rem;
+            }
+            .point-card {
+                min-width: 100%;
+            }
+            th, td {
+                font-size: 0.75rem;
+                padding: 6px 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="logo-area">
+        <img src="logo-blindinsight.jpeg" alt="BlindInsight" class="eye-logo">
+        <div class="header">
+            <h1>BLINDINSIGHT</h1>
+            <h2>Anonymisation des données sensibles</h2>
+            <p>Protégez la confidentialité de vos données tout en conservant leur valeur.</p>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin-bottom: 1.5rem;">
+        <button class="btn" id="scrollToContact">Commencer</button>
+    </div>
+
+    <div class="importance">
+        <h3>📌 Anonymisation : pourquoi est-ce important ?</h3>
+        <div class="points">
+            <div class="point-card">
+                <div class="point-icon">🔒</div>
+                <strong>Protection de la vie privée</strong>
+                <span>Préservez l'anonymat et la confidentialité des informations sensibles</span>
+            </div>
+            <div class="point-card">
+                <div class="point-icon">⚖️</div>
+                <strong>Conformité légale</strong>
+                <span>Respectez les régulations RGPD, ISO 27001, Loi OHADA</span>
+            </div>
+            <div class="point-card">
+                <div class="point-icon">🤝</div>
+                <strong>Utilisation sécurisée</strong>
+                <span>Partagez vos données en toute sécurité avec vos partenaires</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="legal-section">
+        <h3>⚖️ Cadre juridique et conformité</h3>
+        <div class="legal-grid">
+            <div class="legal-item">
+                <h4>SARL OHADA</h4>
+                <p>Responsabilité limitée (art.301 AUSCGIE), protection du patrimoine personnel, capital libre.</p>
+            </div>
+            <div class="legal-item">
+                <h4>Loi n°2024/017</h4>
+                <p>Protection des données personnelles au Cameroun – amendes jusqu'à 10M FCFA.</p>
+            </div>
+            <div class="legal-item">
+                <h4>RGPD & ISO 27001</h4>
+                <p>Standards internationaux pour une anonymisation irréversible et certifiée.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="tables-section">
+        <div class="table-wrapper">
+            <div class="table-title">📄 Données brutes (avant anonymisation)</div>
+            <table>
+                <thead>
+                    <tr><th>ID</th><th>Nom</th><th>Email</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>12345</td><td>Dupont Marie</td><td>marie.dupont@email.com</td></tr>
+                    <tr><td>67890</td><td>Martin Jacques</td><td>jacques.martin@email.com</td></tr>
+                    <tr><td>11223</td><td>Ngono Anne</td><td>anne.ngono@email.cm</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="table-wrapper">
+            <div class="table-title">🔒 Données anonymisées (après traitement)</div>
+            <table>
+                <thead>
+                    <tr><th>ID (masqué)</th><th>Pseudonyme</th><th>Email (haché)</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>***45</td><td>User_A12</td><td>*****9833670a1</td></tr>
+                    <tr><td>***90</td><td>User_B34</td><td>*****2f7c8b9a</td></tr>
+                    <tr><td>***23</td><td>User_C56</td><td>*****d4e5f6g7</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="contact-section" id="contactForm">
+        <h3>📞 Demandez une démonstration gratuite</h3>
+        <form id="demoForm">
+            <div class="form-group">
+                <label>Nom complet</label>
+                <input type="text" id="nom" placeholder="Votre nom" required>
+            </div>
+            <div class="form-group">
+                <label>Email professionnel</label>
+                <input type="email" id="email" placeholder="exemple@entreprise.cm" required>
+            </div>
+            <div class="form-group">
+                <label>Message</label>
+                <textarea id="message" rows="3" placeholder="Décrivez votre besoin en anonymisation..."></textarea>
+            </div>
+            <button type="submit" class="btn-submit">Envoyer la demande</button>
+            <div id="formFeedback" class="form-message"></div>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Bouton "Commencer" : scroll vers le formulaire
+    document.getElementById('scrollToContact').addEventListener('click', function() {
+        document.getElementById('contactForm').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // Gestion du formulaire
+    document.getElementById('demoForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const nom = document.getElementById('nom').value;
+        const email = document.getElementById('email').value;
+        const message = document.getElementById('message').value;
+
+        if(!nom || !email) {
+            document.getElementById('formFeedback').innerHTML = '⚠️ Veuillez remplir au moins votre nom et email.';
+            document.getElementById('formFeedback').style.color = 'red';
+            return;
+        }
+
+        document.getElementById('formFeedback').innerHTML = `✅ Merci ${nom} ! Notre équipe vous contactera sous 24h à l'adresse ${email}.`;
+        document.getElementById('formFeedback').style.color = '#00C853';
+        document.getElementById('demoForm').reset();
+    });
+</script>
+
+</body>
+</html>
